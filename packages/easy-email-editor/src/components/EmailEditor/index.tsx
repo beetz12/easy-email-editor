@@ -1,4 +1,6 @@
-import React, { useMemo, useCallback } from 'react';
+'use client';
+
+import React, { useMemo, useCallback, useEffect } from 'react';
 import { Stack } from '../UI/Stack';
 import { ToolsPanel } from './components/ToolsPanel';
 import { createPortal } from 'react-dom';
@@ -15,13 +17,19 @@ import './index.scss';
 import '@/assets/font/iconfont.css';
 import { EventManager, EventType } from '@/utils/EventManager';
 
-(window as any).global = window; // react-codemirror
-
 export const EmailEditor = () => {
   const { height: containerHeight } = useEditorProps();
   const { setActiveTab, activeTab } = useActiveTab();
 
+  // Set window.global for react-codemirror in useEffect to avoid SSR issues
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).global = window;
+    }
+  }, []);
+
   const fixedContainer = useMemo(() => {
+    if (typeof document === 'undefined') return null;
     return createPortal(<div id={FIXED_CONTAINER_ID} />, document.body);
   }, []);
 

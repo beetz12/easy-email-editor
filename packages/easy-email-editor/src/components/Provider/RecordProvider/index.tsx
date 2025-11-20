@@ -1,3 +1,5 @@
+'use client';
+
 import { IEmailTemplate } from '@/typings';
 import { useForm, useFormState } from 'react-final-form';
 import { cloneDeep, isEqual } from 'lodash';

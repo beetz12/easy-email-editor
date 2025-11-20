@@ -1,3 +1,5 @@
+'use client';
+
 import { Card, ConfigProvider, Layout } from '@arco-design/web-react';
 import { useEditorProps, useFocusIdx } from 'easy-email-editor';
 import React, { useEffect } from 'react';

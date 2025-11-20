@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback, useEffect, useRef } from 'react';
 import { BlockType, getChildIdx } from 'easy-email-core';
 import { useHoverIdx } from '@/hooks/useHoverIdx';

@@ -22,7 +22,14 @@ import { getContentEditableClassName } from './getContentEditableClassName';
 import { isNavbarBlock } from './isNavbarBlock';
 import { isTableBlock } from './isTableBlock';
 
-const domParser = new DOMParser();
+// Lazy initialize to avoid SSR issues
+let domParser: DOMParser | null = null;
+function getDomParser(): DOMParser {
+  if (!domParser && typeof DOMParser !== 'undefined') {
+    domParser = new DOMParser();
+  }
+  return domParser!;
+}
 
 export function getChildSelector(selector: string, index: number) {
   return `${selector}-${index}`;
@@ -36,7 +43,8 @@ export function HtmlStringToReactNodes(
   content: string,
   option: HtmlStringToReactNodesOptions,
 ) {
-  let doc = domParser.parseFromString(content, 'text/html'); // The average time is about 1.4 ms
+  const parser = getDomParser();
+  let doc = parser.parseFromString(content, 'text/html'); // The average time is about 1.4 ms
   [...doc.getElementsByTagName('a')].forEach(node => {
     node.setAttribute('tabIndex', '-1');
   });

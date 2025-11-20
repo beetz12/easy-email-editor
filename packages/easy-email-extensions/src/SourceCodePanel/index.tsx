@@ -1,3 +1,5 @@
+'use client';
+
 import { Collapse, Input, Message } from '@arco-design/web-react';
 import {
   BasicType,

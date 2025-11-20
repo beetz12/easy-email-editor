@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import {
   Dropdown,

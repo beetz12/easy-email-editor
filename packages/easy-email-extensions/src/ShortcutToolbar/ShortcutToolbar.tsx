@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable react/jsx-wrap-multilines */
 
 import { AdvancedType, IButton, IImage } from 'easy-email-core';

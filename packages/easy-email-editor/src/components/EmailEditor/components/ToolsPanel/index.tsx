@@ -1,3 +1,5 @@
+'use client';
+
 import { Stack } from '@/components/UI/Stack';
 import React from 'react';
 import { useBlock } from '@/hooks/useBlock';

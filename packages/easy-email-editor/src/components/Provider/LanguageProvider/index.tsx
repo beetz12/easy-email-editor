@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { I18nManager, t } from 'easy-email-core';
 
@@ -8,7 +10,13 @@ export const LanguageProvider: React.FC<{
   const [count, setCount] = useState(0);
 
   I18nManager.setLocaleData(props.locale || {});
-  window.t = t as any;
+
+  // Set window.t in useEffect to avoid SSR issues
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).t = t;
+    }
+  }, []);
 
   useEffect(() => {
     setCount(c => c + 1);

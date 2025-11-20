@@ -1,6 +1,14 @@
 import { BlockManager, IBlockData, BasicType } from 'easy-email-core';
 
-const tempEle = document.createElement('div');
+// Lazy initialize to avoid SSR issues
+let tempEle: HTMLDivElement | null = null;
+function getTempElement(): HTMLDivElement {
+  if (!tempEle && typeof document !== 'undefined') {
+    tempEle = document.createElement('div');
+  }
+  return tempEle!;
+}
+
 export function getBlockTitle(
   blockData: IBlockData,
   isFromContent = true
@@ -11,8 +19,11 @@ export function getBlockTitle(
     isFromContent &&
     (blockData.type === BasicType.TEXT || blockData.type === BasicType.BUTTON)
   ) {
-    tempEle.innerHTML = blockData.data.value.content;
-    return tempEle.innerText;
+    const element = getTempElement();
+    if (element) {
+      element.innerHTML = blockData.data.value.content;
+      return element.innerText;
+    }
   }
 
   const blockName = BlockManager.getBlockByType(blockData.type)?.name || '';

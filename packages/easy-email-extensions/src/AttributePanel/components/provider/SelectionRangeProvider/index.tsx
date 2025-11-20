@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { RICH_TEXT_TOOL_BAR } from '@extensions/constants';
 import { getShadowRoot } from 'easy-email-editor';

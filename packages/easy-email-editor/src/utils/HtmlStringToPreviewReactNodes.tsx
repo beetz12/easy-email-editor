@@ -2,7 +2,14 @@ import { camelCase } from 'lodash';
 import React from 'react';
 import { getNodeTypeFromClassName } from 'easy-email-core';
 
-const domParser = new DOMParser();
+// Lazy initialize to avoid SSR issues
+let domParser: DOMParser | null = null;
+function getDomParser(): DOMParser {
+  if (!domParser && typeof DOMParser !== 'undefined') {
+    domParser = new DOMParser();
+  }
+  return domParser!;
+}
 
 export function getChildSelector(selector: string, index: number) {
   return `${selector}-${index}`;
@@ -11,7 +18,8 @@ export function getChildSelector(selector: string, index: number) {
 export function HtmlStringToPreviewReactNodes(
   content: string,
 ) {
-  let doc = domParser.parseFromString(content, 'text/html'); // The average time is about 1.4 ms
+  const parser = getDomParser();
+  let doc = parser.parseFromString(content, 'text/html'); // The average time is about 1.4 ms
   const reactNode = (
     <RenderReactNode selector={'0'} node={doc.documentElement} index={0} />
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import { Uploader } from '@extensions/AttributePanel/utils/Uploader';
 import { Input } from '@arco-design/web-react';
 import React, { useEffect, useRef, useState } from 'react';

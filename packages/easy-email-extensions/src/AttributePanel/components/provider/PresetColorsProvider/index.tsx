@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useLocalStorage } from 'react-use';
 import { debounce } from 'lodash';
@@ -34,13 +36,23 @@ export const PresetColorsProvider: React.FC<{
   );
   const currentColorsRef = useRefState(currentColors);
 
-  const colorDivRef = useRef(document.createElement('div'));
+  // Lazy initialize to avoid SSR issues
+  const colorDivRef = useRef<HTMLDivElement | null>(null);
+  const getColorDiv = () => {
+    if (!colorDivRef.current && typeof document !== 'undefined') {
+      colorDivRef.current = document.createElement('div');
+    }
+    return colorDivRef.current;
+  };
 
   const addCurrentColor = useCallback(
     debounce((newColor: string) => {
-      colorDivRef.current.style.color = '';
-      colorDivRef.current.style.color = newColor;
-      if (colorDivRef.current.style.color) {
+      const colorDiv = getColorDiv();
+      if (!colorDiv) return;
+
+      colorDiv.style.color = '';
+      colorDiv.style.color = newColor;
+      if (colorDiv.style.color) {
         if (currentColorsRef.current!.includes(newColor)) return;
         const newColors = [...new Set([...currentColorsRef.current!, newColor])]
           .filter(Boolean)

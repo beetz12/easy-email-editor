@@ -1,3 +1,5 @@
+'use client';
+
 import { useFocusIdx } from '@/hooks/useFocusIdx';
 import React, { useEffect, useMemo, useState } from 'react';
 import { getBlockNodeByIdx, getShadowRoot } from '@/utils';
