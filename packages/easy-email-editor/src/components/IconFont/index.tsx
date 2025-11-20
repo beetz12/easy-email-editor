@@ -1,3 +1,5 @@
+'use client';
+
 import { classnames } from '@/utils/classnames';
 import React from 'react';
 

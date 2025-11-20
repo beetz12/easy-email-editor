@@ -1,3 +1,5 @@
+'use client';
+
 import { Input, Popover, PopoverProps } from '@arco-design/web-react';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 

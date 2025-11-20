@@ -1,0 +1,31 @@
+{
+  "name": "nextjs14-app-router-demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "next": "^14.2.18",
+    "easy-email-core": "workspace:*",
+    "easy-email-editor": "workspace:*",
+    "easy-email-extensions": "workspace:*",
+    "mjml-browser": "^4.15.3",
+    "react-final-form": "^6.5.9",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/lodash": "^4.17.13",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.18"
+  }
+}

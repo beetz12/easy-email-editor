@@ -1,3 +1,5 @@
+'use client';
+
 import { SYNC_SCROLL_ELEMENT_CLASS_NAME } from '@/constants';
 import { useDomScrollHeight } from '@/hooks/useDomScrollHeight';
 import { debounce } from 'lodash';

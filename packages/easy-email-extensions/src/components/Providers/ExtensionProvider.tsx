@@ -1,3 +1,5 @@
+'use client';
+
 import { BlockLayerProps } from '@extensions/BlockLayer';
 import { isEqual, omit } from 'lodash';
 import React, { useContext, useMemo, useRef } from 'react';

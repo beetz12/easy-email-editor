@@ -1,3 +1,5 @@
+'use client';
+
 import { useEditorContext } from '@/hooks/useEditorContext';
 import { useEditorProps } from '@/hooks/useEditorProps';
 import { useLazyState } from '@/hooks/useLazyState';
@@ -22,7 +24,14 @@ export const PreviewEmailContext = React.createContext<{
 });
 
 export const PreviewEmailProvider: React.FC<{ children?: React.ReactNode }> = props => {
-  const { current: iframe } = useRef(document.createElement('iframe'));
+  // Lazy initialize iframe to avoid SSR issues
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const getIframe = () => {
+    if (!iframeRef.current && typeof document !== 'undefined') {
+      iframeRef.current = document.createElement('iframe');
+    }
+    return iframeRef.current;
+  };
   const contentWindowRef = useRef<Window | null>(null);
 
   const [mobileWidth, setMobileWidth] = useState(MOBILE_WIDTH);
@@ -96,6 +105,10 @@ export const PreviewEmailProvider: React.FC<{ children?: React.ReactNode }> = pr
 
   useEffect(() => {
     if (errMsg) return;
+    if (typeof document === 'undefined') return;
+
+    const iframe = getIframe();
+    if (!iframe) return;
 
     iframe.width = '400px';
     iframe.style.position = 'fixed';
@@ -107,9 +120,11 @@ export const PreviewEmailProvider: React.FC<{ children?: React.ReactNode }> = pr
     document.body.appendChild(iframe);
 
     return () => {
-      document.body.removeChild(iframe);
+      if (iframe.parentNode) {
+        document.body.removeChild(iframe);
+      }
     };
-  }, [errMsg, html, iframe]);
+  }, [errMsg, html]);
 
   useEffect(() => {
     if (!contentWindowRef.current) return;

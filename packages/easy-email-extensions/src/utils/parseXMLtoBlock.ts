@@ -2,9 +2,18 @@ import mjml from 'mjml-browser';
 import { IBlockData, BlockType, BasicType, BlockManager } from 'easy-email-core';
 import { MjmlToJson } from './MjmlToJson';
 
-const domParser = new DOMParser();
+// Lazy initialize to avoid SSR issues
+let domParser: DOMParser | null = null;
+function getDomParser(): DOMParser {
+  if (!domParser && typeof DOMParser !== 'undefined') {
+    domParser = new DOMParser();
+  }
+  return domParser!;
+}
+
 export function parseXMLtoBlock(text: string) {
-  const dom = domParser.parseFromString(text, 'text/xml');
+  const parser = getDomParser();
+  const dom = parser.parseFromString(text, 'text/xml');
   const root = dom.firstChild as Element;
   if (!(dom.firstChild instanceof Element)) {
     throw new Error('Invalid content');

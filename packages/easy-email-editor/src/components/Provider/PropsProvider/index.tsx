@@ -1,3 +1,5 @@
+'use client';
+
 import { IBlockData } from 'easy-email-core';
 import React, { useMemo } from 'react';
 

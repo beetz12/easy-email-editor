@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { MjmlDomRender } from '../EditEmailPreview/components/MjmlDomRender';
 import { useDropBlock } from '@/hooks/useDropBlock';

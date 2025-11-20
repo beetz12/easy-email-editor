@@ -1,3 +1,5 @@
+'use client';
+
 import { ShortcutToolbar } from '../ShortcutToolbar';
 import { Button, Card, ConfigProvider, Layout, Tabs } from '@arco-design/web-react';
 import { useEditorProps } from 'easy-email-editor';

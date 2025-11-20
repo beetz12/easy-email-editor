@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { Tabs } from '@arco-design/web-react';
 import { AttributePanel } from '@extensions/AttributePanel';
