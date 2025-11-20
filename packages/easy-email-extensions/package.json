@@ -20,7 +20,8 @@
     "dev": "vite",
     "typings": "tsc --declaration --emitDeclarationOnly --project tsconfig.lib.json && tsc-alias -p tsconfig.alias.json",
     "build": "rimraf lib && npm run typings && vite build --config vite.config.ts",
-    "prepare": "npm run build || true",
+    "build:vite-only": "rimraf lib && vite build --config vite.config.ts",
+    "prepare": "(npm install --legacy-peer-deps 2>/dev/null || true) && (npm run build || npm run build:vite-only || true)",
     "format": "eslint --fix  --ext .tsx,.ts,.tsx src/",
     "test": "jest  --coverage"
   },
