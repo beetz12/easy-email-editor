@@ -20,6 +20,7 @@
     "dev": "vite",
     "typings": "tsc --declaration --emitDeclarationOnly --project tsconfig.lib.json && tsc-alias -p tsconfig.alias.json",
     "build": "rimraf lib && npm run typings && vite build --config vite.config.ts",
+    "prepare": "npm run build || true",
     "format": "eslint --fix  --ext .tsx,.ts,.tsx src/"
   },
   "husky": {
