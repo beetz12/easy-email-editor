@@ -57,12 +57,33 @@ export function HtmlStringToReactNodes(
     }
   });
 
+  // Extract styles from head (with SSR safety check)
+  const headStyles = doc.head ? [...doc.head.querySelectorAll('style')] : [];
+
+  // Extract body children (not the body element itself to avoid nesting issues)
+  const bodyChildren = doc.body ? [...doc.body.childNodes] : [];
+
   const reactNode = (
-    <RenderReactNode
-      selector={'0'}
-      node={doc.documentElement}
-      index={0}
-    />
+    <>
+      {/* Render head styles */}
+      {headStyles.map((styleNode, index) => (
+        <RenderReactNode
+          key={`style-${index}`}
+          selector={`style-${index}`}
+          node={styleNode as HTMLElement}
+          index={index}
+        />
+      ))}
+      {/* Render body content without the body element wrapper */}
+      {bodyChildren.map((childNode, index) => (
+        <RenderReactNode
+          key={`body-${index}`}
+          selector={`0-${index}`}
+          node={childNode as HTMLElement}
+          index={index}
+        />
+      ))}
+    </>
   );
 
   return reactNode;
