@@ -21,6 +21,8 @@
     "dev": "yarn build --watch",
     "typings": "tsc --declaration --emitDeclarationOnly --project tsconfig.lib.json",
     "build": "rimraf lib  && npm run typings && tsc-alias  && vite build --config vite.config.ts",
+    "build:vite-only": "rimraf lib && vite build --config vite.config.ts",
+    "prepare": "(npm install --legacy-peer-deps 2>/dev/null || true) && (npm run build || npm run build:vite-only || true)",
     "block": "ts-node -r tsconfig-paths/register scripts/generateBlockJSX.ts",
     "format": "eslint --fix  --ext .tsx,.ts,.tsx src/",
     "test": "jest  --coverage"

@@ -118,6 +118,8 @@ These files provide clean, 'use client' annotated exports specifically for Next.
 
 ### Installation
 
+#### From npm (when published):
+
 ```bash
 npm install easy-email-core easy-email-editor easy-email-extensions
 # or
@@ -125,6 +127,42 @@ yarn add easy-email-core easy-email-editor easy-email-extensions
 # or
 pnpm add easy-email-core easy-email-editor easy-email-extensions
 ```
+
+#### From GitHub (for latest Next.js 14 compatibility):
+
+```bash
+# Using npm
+npm install github:beetz12/easy-email-editor#main
+
+# Using yarn
+yarn add github:beetz12/easy-email-editor#main
+
+# Using pnpm
+pnpm add github:beetz12/easy-email-editor#main
+```
+
+**Note:** When installing from GitHub, the packages will automatically build via the `prepare` script. This may take 2-3 minutes on first install as it installs dependencies and builds all three packages.
+
+#### Troubleshooting Build Issues
+
+If automatic building fails or you encounter TypeScript errors, manually build the packages:
+
+```bash
+cd node_modules/easy-email-editor
+
+# Option 1: Full build with type definitions (requires devDependencies)
+cd packages/easy-email-core && npm install --legacy-peer-deps && cd ../..
+cd packages/easy-email-editor && npm install --legacy-peer-deps && cd ../..
+cd packages/easy-email-extensions && npm install --legacy-peer-deps && cd ../..
+npm run build:core && npm run build:editor && npm run build:extensions
+
+# Option 2: Vite-only build (faster, skips TypeScript declarations)
+cd packages/easy-email-core && npx vite build --config vite.config.ts && cd ../..
+cd packages/easy-email-editor && npx vite build --config vite.config.ts && cd ../..
+cd packages/easy-email-extensions && npx vite build --config vite.config.ts && cd ../..
+```
+
+The Vite-only build is sufficient for usage - it compiles all JavaScript but skips generating `.d.ts` type declaration files.
 
 ### Basic Setup (App Router)
 
