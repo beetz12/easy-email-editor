@@ -118,12 +118,34 @@ These files provide clean, 'use client' annotated exports specifically for Next.
 
 ### Installation
 
+#### From npm (when published):
+
 ```bash
 npm install easy-email-core easy-email-editor easy-email-extensions
 # or
 yarn add easy-email-core easy-email-editor easy-email-extensions
 # or
 pnpm add easy-email-core easy-email-editor easy-email-extensions
+```
+
+#### From GitHub (for latest Next.js 14 compatibility):
+
+```bash
+# Using npm
+npm install github:beetz12/easy-email-editor#main
+
+# Using yarn
+yarn add github:beetz12/easy-email-editor#main
+
+# Using pnpm
+pnpm add github:beetz12/easy-email-editor#main
+```
+
+**Note:** When installing from GitHub, the packages will automatically build via the `prepare` script. This may take a minute on first install. If you encounter build errors, ensure you have the necessary devDependencies available or build the packages manually:
+
+```bash
+cd node_modules/easy-email-editor
+npm run build:core && npm run build:editor && npm run build:extensions
 ```
 
 ### Basic Setup (App Router)
